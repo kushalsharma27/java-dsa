@@ -1,0 +1,131 @@
+package workshop;
+
+import java.util.*;
+
+class prefixSum {
+	
+	// prefix sum array with creation of new array
+	
+	static int[] prefixsumArray(int[] arr) {
+		int n = arr.length;
+		int[] pref = new int[n];
+		pref[0] = arr[0];
+		for (int i = 1; i < n; i++) {
+			pref[i] = pref[i - 1] + arr[i];
+		}
+		return pref;
+	}
+	
+	// prefix sum without creating a new array
+	
+	static int[] prefixSumArray(int[] arr) {
+		int n = arr.length;
+		for(int i=1;i<n;i++) {
+			arr[i] = arr[i-1]+arr[i];
+		}
+		return arr;
+	}
+	
+	
+}
+
+class partitionsum  {
+	static int totalsum(int[] arr) {
+		int totalSum =0;
+		for(int i=0;i<arr.length;i++) {
+			totalSum+=arr[i];
+		}
+		return totalSum;
+	}
+	
+	// to check prefix sum  is equal to suffix sum
+	static boolean equalPartitionSum(int[] arr) {
+		int toTalsum = totalsum(arr); 
+		int prefsum=0;
+		for(int i=0;i<arr.length;i++) {
+			prefsum+=arr[i];
+			int suffixsum = toTalsum-prefsum;
+			if(prefsum == suffixsum) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	
+	static int countOnes(int[] arr) {
+		int n = arr.length;
+		int count =1;
+		for(int i=0;i<n;i++) {
+			if(arr[i] == 1 && arr[i+1] == 1) {
+				count++;
+			}
+		}
+		return count;
+	}
+}
+
+public class workshop_8 extends prefixSum{
+	
+	static void printArray(int[] arr) {
+		int n = arr.length;
+		for(int i=0;i<n;i++) {
+			System.out.print(arr[i]+" ");
+		}
+	}
+
+	public static void main(String[] args) { 
+		// TODO Auto-generated method stub
+		workshop_8 sc = new workshop_8();
+		
+		  Scanner re = new Scanner(System.in);
+		  System.out.println("Enter Size");
+		  int n= re.nextInt();
+		  System.out.println("Enter Elements:");
+		  int[] arr = new int[n];
+		 
+		  for(int i=0;i<n;i++) { 
+			  arr[i] = re.nextInt();
+		}  
+		
+			
+			  int[] arry = new int[n];
+	  for(int i=0;i<arry.length;i++) {
+			  arry[i]=re.nextInt();
+			  }
+			  int mx = arry[0];
+	  			  for (int i=0;i<arry.length;i++) {
+		  if (arry[i]>mx) {
+				  mx = arry[i];
+				  } 
+			  }
+			  int secondmax=mx;
+			  for(int i=0;i<n;i++) {
+		  if(arry[i]==mx) { 
+			 mx=Integer.MIN_VALUE; 
+				 }
+			  }
+			 
+		System.out.println(countOnes(arry));
+		  
+		  System.out.println(secondmax);
+		 
+		
+		  int[] prefix =prefixSumArray(arr);
+		  System.out.println("Enter number of querry:");
+		  
+			  int q = re.nextInt();
+ while(q-- > 0) {
+			  System.out.println("Enter range");
+			  int l = re.nextInt();
+			  int r = re.nextInt();
+		  int ans = prefix[r] - prefix[l-1];
+			 System.out.println(ans); 
+		  }
+		  printArray(prefixSumArray(arr));
+		  
+	 System.out.print(equalPartitionSum(arr));
+		
+	}
+}
