@@ -1,0 +1,234 @@
+package twoD_arrays;
+import java.util.*;
+
+class TransposeMatrix{
+	static int[][] findTranspose(int[][] arr,int r,int c){
+		int[][] ans = new int[c][r];
+		for(int i=0;i<c;i++) {
+			for(int j=0;j<r;j++) {
+				ans[i][j] = arr[j][i];
+			}
+		}
+		return ans;
+	}
+	
+	static void transposeInPlace(int[][] arr,int r,int c) {
+		for(int i=0;i<r;i++) {
+			for(int j=i;j<c;j++) {
+				int temp = arr[i][j];
+				arr[i][j] = arr[j][i];
+				arr[j][i] = temp;
+			}
+		}
+	}
+	
+	static void reverseArray(int[] arr) {
+		int left=0,right = arr.length-1;
+		while(left<right) {
+			int temp =arr[left];
+			arr[left] = arr[right];
+			arr[right] = temp;
+			left++;
+			right--;
+		}
+	}
+	
+	static void rotate(int[][] arr,int n) {
+		transposeInPlace(arr,n,n);
+	for(int i=0;i<n;i++) {
+		reverseArray(arr[i]);
+	}
+	}
+}
+
+class Pascal{
+	static int[][] pascalTriangle(int n){
+		int[][] ans = new int[n][];
+		for(int i=0;i<n;i++) {
+			 ans[i] = new int[i+1];
+			ans[i][0] = ans[i][i] = 1;
+			for(int j=1;j<i;j++) {
+				ans[i][j] = ans[i-1][j]+ans[i-1][j-1];
+				
+			}
+		}
+		return ans;
+	}
+}
+
+class MatrixOperations{
+	
+	static void printMatrix(int[][] arr) {
+		
+		for(int i=0;i<arr.length;i++) {
+			for(int j=0;j<arr[i].length;j++) {
+				System.out.print(arr[i][j]+" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	
+	static int[][] add(int[][] a,int r1,int c1,int[][] b,int r2,int c2) {
+		if(r1!=r2 || c1!=c2) {
+			System.out.println("Dimension not match error");
+		}
+		
+		int[][] sum = new int[r1][c1];
+		for(int i=0;i<r1;i++) {
+			for(int j=0;j<c1;j++) {
+				sum[i][j] = a[i][j] + b[i][j];
+			}
+		}
+		return sum;
+	}
+	
+	
+	static void multiply(int[][] a,int r1,int c1,int[][] b,int r2,int c2) {
+		if(c2!=r1) {
+			System.out.print("wrong Dimension");
+		    return;
+		}
+		
+		int[][] mul = new int[r1][c2];
+		for(int i=0;i<r1;i++) {
+			for(int j=0;j<c2;j++) {
+				for(int k=0;k<c1;k++) {
+					mul[i][j] = a[i][k] * b[k][j];
+				}
+			}
+		}
+		printMatrix(mul);
+	}
+	
+	
+	
+}
+
+class lecture_22{
+	static void printSpiral(int[][] matrix,int r,int c) {
+		  int topRow =0,bottomRow=r-1,leftCol=0,rightCol=c-1;
+			 int totalElements = 0;
+			  while(totalElements < r*c) {
+				 // toprow -> leftcol to rightcol
+				  for(int j=leftCol;j<=rightCol && totalElements < r*c ;j++) {
+					  System.out.print(matrix[topRow][j]+" ");
+					  totalElements++;
+				  }
+				  topRow++;
+				  // rightcol -> toprow to bottomrow
+				  for(int i= topRow;i<=bottomRow && totalElements < r*c;i++) {
+					  System.out.print(matrix[i][rightCol]+" ");
+					  totalElements++;
+				  } 
+				  rightCol--;
+				  // bottomrow -> rightcol to leftcol
+				  for(int j=rightCol;j>=leftCol && totalElements < r*c;j--) {
+					  System.out.print(matrix[bottomRow][j]+" ");
+					  totalElements++;
+				  }
+				  bottomRow--;
+				  // leftcol -> bottomrow to toprow
+				  for(int i=bottomRow;i>=topRow && totalElements < r*c;i--) {
+					  System.out.print(matrix[i][leftCol]+" ");  
+					  totalElements++;
+				  }
+				  leftCol++;
+				  
+			  }
+		}
+	static int[][] takingSpiralInput(int n) {
+		 int[][] matrix = new int[n][n]; 
+		int topRow =0,bottomRow=n-1,leftCol=0,rightCol=n-1;
+			 int curr = 1;
+			
+			  while(curr <= n*n) {
+				  
+				 // toprow -> leftcol to rightcol
+				  for(int j=leftCol;j<=rightCol && curr < n*n ;j++) {
+					  matrix[topRow][j] = curr++;
+					  
+				  }
+				  topRow++;
+				  
+				  
+				  // rightcol -> toprow to bottomrow
+				  for(int i= topRow;i<=bottomRow && curr < n*n;i++) {
+					  matrix[i][rightCol]=curr++;
+				  } 
+				  rightCol--;
+				  
+				  
+				  // bottomrow -> rightcol to leftcol
+				  for(int j=rightCol;j>=leftCol && curr < n*n;j--) {
+					  matrix[bottomRow][j]=curr++;
+				  }
+				  bottomRow--;
+				  
+				  
+				  // leftcol -> bottomrow to toprow
+				  for(int i=bottomRow;i>=topRow && curr < n*n;i--) {
+					  matrix[i][leftCol]=curr++;
+				  }
+				  leftCol++;
+				  
+			  }
+			  return matrix;
+		}
+	}	
+
+
+
+public class twoDArrays extends lecture_22{
+
+	static void printMatrix(int[][] arr) {
+	
+		for(int i=0;i<arr.length;i++) {
+			for(int j=0;j<arr[i].length;j++) {
+				System.out.print(arr[i][j]+" ");
+			}
+			System.out.println();
+		}
+	}
+
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		/*
+		 * int[][] arr_2 = {{1,2,3}, {7,2,9}, {6,2,1} };
+		 */
+		/*
+		 * System.out.println("Enter Number of r1: "); int r1 = sc.nextInt();
+		 * System.out.println("Enter Number of c1"); int c1 = sc.nextInt(); int[][] a =
+		 * new int[r1][c1]; System.out.println("Enter ELements of matrix 1"); for(int
+		 * i=0;i<r1;i++) { for (int j=0;j<c1;j++) { a[i][j] = sc.nextInt(); } }
+		 */
+		/*
+		 * System.out.println("Enter number of r2: "); int r2 = sc.nextInt();
+		 * System.out.println("Enter number of c2"); int c2 = sc.nextInt(); int[][] b =
+		 * new int[r2][c2]; System.out.println("Enter elements matrix 2"); for(int
+		 * i=0;i<r2;i++) { for(int j=0;j<c2;j++) { b[i][j] = sc.nextInt(); } }
+		 * 
+		 * // printMatrix(a); // printMatrix(b); int[][] sum = add(a,r1,c1,b,r2,c2);
+		 * 
+		 * multiply(a,r1,c1,b,r2,c2);
+		 */	
+		
+		/*
+		 * System.out.println("Enter number of rows:"); int r = sc.nextInt();
+		 * System.out.println("Enter number of coloumns:"); int c = sc.nextInt();
+		 * int[][] matrix = new int[r][c]; System.out.println("Enter Elements:");
+		 * for(int i=0;i<r;i++) { for(int j=0;j<c;j++) { matrix[i][j] = sc.nextInt(); }}
+		 */
+		//  int[][] ans = findTranspose(arr,r,c); rotate(arr,r); printMatrix(arr);
+		 
+		System.out.println("Enter n: ");
+		int n  = sc.nextInt();
+	//	int[][] ans = pascalTriangle(n);
+	//	printMatrix(ans);
+		int[][] matrix = takingSpiralInput(n);
+	  printMatrix(matrix);
+	}	}  
+	
+
